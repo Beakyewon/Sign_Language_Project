@@ -25,7 +25,7 @@ def init_create_folder_database():
 		conn.execute(create_table_cmd)
 		conn.commit()
 
-def create_folder(folder_name):
+def create_folder(folder_name):#train, value 데이터 폴더 만들때 사용할 함수
 	if not os.path.exists(folder_name):
 		os.mkdir(folder_name)
 
@@ -35,12 +35,12 @@ def store_in_db(g_id, g_name):
 	try:
 		conn.execute(cmd)
 	except sqlite3.IntegrityError:
-		choice = input("g_id already exists. Want to change the record? (y/n): ")
+		choice = input("이미 등록되어있습니다. 바꾸시겠습니까? (y/n): ")
 		if choice.lower() == 'y':
 			cmd = "UPDATE gesture SET g_name = \'%s\' WHERE g_id = %s" % (g_name, g_id)
 			conn.execute(cmd)
 		else:
-			print("실행정지")
+			print("종료")
 			return
 	conn.commit()
 	
